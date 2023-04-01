@@ -1,3 +1,0 @@
-local {
-    parameters = [var.component]
-}
