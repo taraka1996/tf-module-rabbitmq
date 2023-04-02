@@ -2,9 +2,10 @@ resource "aws_spot_instance_request" "rabbitmq" {
   ami                  = data.aws_ami.ami.id
   instance_type        = var.instance_type
   subnet_id            = var.subnet_ids[0]
+  wait_for_fulfillment = true
   vpc_security_group_ids = [aws_security_group.main.id]
   iam_instance_profile   = aws_iam_instance_profile.main.name
-
+  name_prefix = "example-"
   user_data = base64encode(templatefile("${path.module}/userdata.sh", {
     component = "rabbitmq"
     env       = var.env
